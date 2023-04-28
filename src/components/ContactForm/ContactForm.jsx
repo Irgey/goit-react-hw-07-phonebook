@@ -4,8 +4,6 @@ import { addContact } from 'redux/operations';
 // import { addContact } from 'redux/slice';
 import css from './ContactForm.module.css';
 const ContactForm = () => {
-  const { items: contacts } = useSelector(selectContacts);
-
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
