@@ -12,16 +12,6 @@ const ContactForm = () => {
     e.preventDefault();
     const form = e.target;
 
-    const {
-      name: { value: name },
-    } = e.target;
-    if (
-      contacts.find(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
-      )
-    ) {
-      return alert(`${name} is already in contacts.`);
-    }
     dispatch(
       addContact({
         name: form.elements.name.value,

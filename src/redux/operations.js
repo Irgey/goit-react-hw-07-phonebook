@@ -24,6 +24,20 @@ export const addContact = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
+  },
+  {
+    condition: ({ name }, thunkAPI) => {
+      const store = thunkAPI.getState();
+      const contacts = store.contacts.items;
+      if (
+        contacts.find(
+          contact => contact.name.toLowerCase() === name.toLowerCase()
+        )
+      ) {
+        alert(`${name} is already in contacts.`);
+        return false;
+      }
+    },
   }
 );
 export const deleteContact = createAsyncThunk(
@@ -35,15 +49,5 @@ export const deleteContact = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  },
-  {
-    condition: (_, thunkAPI) => {
-      const store = thunkAPI.getState();
-      console.log(store);
-      const isLoading = store.contacts.isLoading;
-      if (isLoading) {
-        return false;
-      }
-    },
   }
 );
