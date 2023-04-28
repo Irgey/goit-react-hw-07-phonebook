@@ -31,7 +31,7 @@ export const App = () => {
       <ContactForm />
 
       <h2>Contacts</h2>
-      {/* <Filter value={filter} /> */}
+      <Filter />
       <ContactList contacts={renderContacts()} />
     </div>
   );

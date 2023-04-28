@@ -8,7 +8,6 @@ export const fetchContacts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get('/contacts');
-      console.log(response);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -36,5 +35,15 @@ export const deleteContact = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
+  },
+  {
+    condition: (_, thunkAPI) => {
+      const store = thunkAPI.getState();
+      console.log(store);
+      const isLoading = store.contacts.isLoading;
+      if (isLoading) {
+        return false;
+      }
+    },
   }
 );
