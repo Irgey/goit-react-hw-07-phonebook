@@ -1,15 +1,15 @@
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/slice';
+import { deleteContact } from 'redux/operations';
 import PropTypes from 'prop-types';
 import css from './ContactElement.module.css';
-const ContactElement = ({ name, number, onClickDeleteBtn, id }) => {
+const ContactElement = ({ name, phone, id }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => dispatch(deleteContact(id));
   return (
     <li className={css.listItem}>
       <p>
-        {name}: {number}
+        {name}: {phone}
       </p>
       <button onClick={handleDelete}>Delete</button>
     </li>

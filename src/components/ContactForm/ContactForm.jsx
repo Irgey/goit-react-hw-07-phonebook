@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
-
-import { addContact } from 'redux/slice';
+import { addContact } from 'redux/operations';
+// import { addContact } from 'redux/slice';
 import css from './ContactForm.module.css';
 const ContactForm = () => {
-  const contacts = useSelector(selectContacts);
+  const { items: contacts } = useSelector(selectContacts);
 
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const ContactForm = () => {
     dispatch(
       addContact({
         name: form.elements.name.value,
-        number: form.elements.number.value,
+        phone: form.elements.number.value,
       })
     );
     form.reset();

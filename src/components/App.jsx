@@ -2,50 +2,13 @@
  * Refactored with hooks
  */
 import { ContactForm, ContactList, Filter } from './index';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/operations';
 import { selectContacts, selectFilter } from 'redux/selectors';
 export const App = () => {
   const filter = useSelector(selectFilter);
-  // const [contacts, setContacts] = useState(() => {
-  //   const localStorageContacts = localStorage.getItem('contacts');
-  //   if (localStorageContacts) {
-  //     return JSON.parse(localStorageContacts);
-  //   }
-  //   return [
-  //     { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  //     { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  //     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  //     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  //   ];
-  // });
-  const contacts = useSelector(selectContacts);
-  /**
-   * Own methods
-   */
-  // const addContact = e => {
-  //   e.preventDefault();
-  //   const {
-  //     name: { value: name },
-  //     number: { value: number },
-  //   } = e.target;
-  //   if (
-  //     contacts.find(
-  //       contact => contact.name.toLowerCase() === name.toLowerCase()
-  //     )
-  //   ) {
-  //     return alert(`${name} is already in contacts.`);
-  //   }
-  //   const contactObj = {
-  //     name,
-  //     number,
-  //     id: nanoid(),
-  //   };
-  //   setContacts(prevState => [...prevState, contactObj]);
-  //   Array.from(e.target).forEach(e => (e.value = '')); // form reset
-  // };
-  // const deleteContact = id => {
-  //   setContacts(prevState => prevState.filter(contact => contact.id !== id));
-  // };
+  const { items: contacts, isLoading, error } = useSelector(selectContacts);
+  console.log(contacts, isLoading, error);
   const renderContacts = () => {
     if (filter) {
       const normalizedFilter = filter.toLowerCase();
@@ -68,7 +31,7 @@ export const App = () => {
       <ContactForm />
 
       <h2>Contacts</h2>
-      <Filter value={filter} />
+      {/* <Filter value={filter} /> */}
       <ContactList contacts={renderContacts()} />
     </div>
   );

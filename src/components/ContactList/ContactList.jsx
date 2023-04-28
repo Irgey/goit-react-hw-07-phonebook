@@ -1,10 +1,20 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/operations';
+import { useEffect } from 'react';
 import { ContactElement } from 'components';
 import PropTypes from 'prop-types';
 import { selectContacts, selectFilter } from 'redux/selectors';
 
 const ContactList = ({ onClickDeleteBtn }) => {
-  const contacts = useSelector(selectContacts);
+  const dispatch = useDispatch();
+
+  const { items: contacts, isLoading, error } = useSelector(selectContacts);
+  console.log(contacts, isLoading, error);
+  useEffect(() => {
+    console.log('useffect');
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   const filter = useSelector(selectFilter);
   const renderContacts = () => {
     if (filter) {
@@ -18,17 +28,15 @@ const ContactList = ({ onClickDeleteBtn }) => {
   };
 
   return (
-    <ul>
-      {renderContacts().map(({ name, number, id }) => (
-        <ContactElement
-          name={name}
-          number={number}
-          key={id}
-          id={id}
-          onClickDeleteBtn={onClickDeleteBtn}
-        />
-      ))}
-    </ul>
+    <>
+      {' '}
+      {isLoading && !error && <p>Loading contacts...</p>}
+      <ul>
+        {renderContacts().map(({ name, phone, id }) => (
+          <ContactElement name={name} phone={phone} key={id} id={id} />
+        ))}
+      </ul>
+    </>
   );
 };
 export default ContactList;
