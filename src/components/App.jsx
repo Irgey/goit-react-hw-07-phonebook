@@ -2,8 +2,7 @@
  * Refactored with hooks
  */
 import { ContactForm, ContactList, Filter } from './index';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from 'redux/operations';
+import { useSelector } from 'react-redux';
 import { selectContacts, selectFilter } from 'redux/selectors';
 export const App = () => {
   const filter = useSelector(selectFilter);
