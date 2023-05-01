@@ -1,13 +1,21 @@
 /**
  * Refactored with hooks
  */
+import { useEffect } from 'react';
 import { ContactForm, ContactList, Filter } from './index';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectFilter } from 'redux/selectors';
+import { fetchContacts } from 'redux/operations';
 export const App = () => {
-  const filter = useSelector(selectFilter);
+  const dispatch = useDispatch();
+
   const { items: contacts, isLoading, error } = useSelector(selectContacts);
   console.log(contacts, isLoading, error);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  const filter = useSelector(selectFilter);
   const renderContacts = () => {
     if (filter) {
       const normalizedFilter = filter.toLowerCase();
@@ -18,7 +26,6 @@ export const App = () => {
     }
     return contacts;
   };
-
   return (
     <div
       style={{
