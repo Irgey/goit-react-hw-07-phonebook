@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { selectContacts } from 'redux/selectors';
 
 const ContactList = ({ contacts }) => {
-  const { items: isLoading, error } = useSelector(selectContacts);
+  const { isLoading, error } = useSelector(selectContacts);
 
   return (
     <>
